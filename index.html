@@ -1,28 +1,35 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Blog</title>
-    <link rel="stylesheet" href="./src/reset.css" />
-    <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="/src/index.ts"></script>
-  </head>
 
-  <body>
-    <main>
-      <header>
-        <h1>Hello, world!</h1>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Blog</title>
+  <link rel="stylesheet" href="./src/reset.css" />
+  <link rel="stylesheet" href="./src/index.css" />
+  <script type="module" src="/src/index.ts"></script>
+</head>
+
+<body>
+  <main>
+    <sl-card class="card-header">
+      <div slot="header">Header Title</div>
 
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat.
       </p>
-      <div id="content"></div>
-    </main>
-  </body>
+    </sl-card>
+    <sl-breadcrumb>
+      <sl-breadcrumb-item href="https://example.com/home">Homepage</sl-breadcrumb-item>
+      <sl-breadcrumb-item href="https://example.com/home/services">Our Services</sl-breadcrumb-item>
+      <sl-breadcrumb-item href="https://example.com/home/services/digital">Digital Media</sl-breadcrumb-item>
+      <sl-breadcrumb-item href="https://example.com/home/services/digital/web-design">Web Design</sl-breadcrumb-item>
+    </sl-breadcrumb>
+  </main>
+</body>
+
 </html>
