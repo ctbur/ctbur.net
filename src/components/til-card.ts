@@ -1,25 +1,64 @@
+import * as contentful from "contentful";
+import { remark } from "remark";
+import remarkHtml from "remark-html";
 import { LitElement, html } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import { Task } from "@lit/task";
+
+const client = contentful.createClient({
+  space: "6d4vhsbxh0yj",
+  environment: "master",
+  accessToken: "6S26NCjEdWLehauOCnlaijvcbjfd3gashEfh4Bnwjpc",
+});
+
+const fetchTil = async (entryId: string): Promise<Til> => {
+  const entry = await client.getEntry(entryId);
+  const renderedContent = await remark()
+    .use(remarkHtml)
+    .process(entry.fields.content as string);
+
+  return {
+    title: entry.fields.title as string,
+    content: renderedContent.toString(),
+  };
+};
+
+interface Til {
+  title: string;
+  content: string;
+}
 
 @customElement("x-til-card")
 export class TilCard extends LitElement {
+  @property() tilId?: string;
+
+  private _fetchTilTask = new Task(this, {
+    task: async ([tilId]) => {
+      if (tilId === undefined) {
+        return Promise.reject("No TIL ID provided");
+      }
+      return await fetchTil(tilId);
+    },
+    args: () => [this.tilId],
+  });
+
   render() {
-    return html`
-      <sl-card class="card-header">
-        <div slot="header">Header Title</div>
+    return this._fetchTilTask.render({
+      pending: () => html`<p>Loading...</p>`,
+      complete: (til) => html`
+        <sl-card class="card-header">
+          <div slot="header">${til.title}</div>
 
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </p>
+          <p>${unsafeHTML(til.content)}</p>
 
-        <div slot="footer">
-          <sl-tag variant="neutral">tag</sl-tag>
-        </div>
-      </sl-card>
-    `;
+          <div slot="footer">
+            <sl-tag variant="neutral">tag TODO</sl-tag>
+          </div>
+        </sl-card>
+      `,
+      error: (e) => html`<sl-card><p>Error: ${e}</p></sl-card>`,
+    });
   }
 }
 

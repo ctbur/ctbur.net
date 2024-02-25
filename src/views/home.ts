@@ -7,7 +7,7 @@ import "../components/nav-bar";
 export class Home extends LitElement {
   render() {
     return html`
-      <x-nav-bar current-view="home"></x-nav-bar>
+      <x-nav-bar currentview="home"></x-nav-bar>
       <main>
         <p>this is the home page</p>
       </main>

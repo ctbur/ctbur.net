@@ -8,9 +8,9 @@ import "../components/til-card";
 export class Home extends LitElement {
   render() {
     return html`
-      <x-nav-bar current-view="tils"></x-nav-bar>
+      <x-nav-bar currentview="tils"></x-nav-bar>
       <main>
-        <x-til-card></x-til-card>
+        <x-til-card tilid="7CHb54awH0gjxM69qIrUG3"></x-til-card>
       </main>
     `;
   }

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lit/task": "^1.0.0",
     "@shoelace-style/shoelace": "^2.14.0",
     "@vaadin/router": "^1.7.5",
     "contentful": "^10.6.21",
