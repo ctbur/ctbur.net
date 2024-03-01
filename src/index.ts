@@ -1,6 +1,5 @@
+import "@shoelace-style/shoelace";
 import "@shoelace-style/shoelace/dist/themes/light.css";
-import "@shoelace-style/shoelace/dist/components/card/card.js";
-import "@shoelace-style/shoelace/dist/components/breadcrumb/breadcrumb.js";
 import { Router } from "@vaadin/router";
 
 import "./views/home";
