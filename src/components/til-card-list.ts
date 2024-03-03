@@ -9,6 +9,7 @@ import { Task } from "@lit/task";
 interface Til {
   title: string;
   content: string;
+  tags: Array<string>;
 }
 
 const client = contentful.createClient({
@@ -23,11 +24,12 @@ const fetchTils = async (): Promise<Array<Til>> => {
   const tils = entries.items.map(async (entry) => {
     const renderedContent = await remark()
       .use(remarkHtml)
-      .process(entry.fields.content as string);
+      .process((entry.fields.content ?? "") as string);
 
     return {
-      title: entry.fields.title as string,
+      title: (entry.fields.title ?? "") as string,
       content: renderedContent.toString(),
+      tags: (entry.fields.tags ?? []) as Array<string>,
     };
   });
   return Promise.all(tils);
@@ -46,7 +48,9 @@ export class TilCardList extends LitElement {
           <p>${unsafeHTML(til.content)}</p>
 
           <div slot="footer">
-            <sl-tag variant="neutral">tag TODO</sl-tag>
+            ${til.tags.map(
+              (tag) => html`<sl-tag class="til-tag" size="small" pill>${tag}</sl-tag>`,
+            )}
           </div>
         </sl-card>
       </div>
@@ -74,6 +78,8 @@ export class TilCardList extends LitElement {
     .til-card-card {
       width: 100%;
     }
+    .til-tag {
+      margin-right: 0.5rem;
   `;
 }
 
