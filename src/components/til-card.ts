@@ -45,7 +45,7 @@ export class TilCard extends LitElement {
 
   render() {
     return this._fetchTilTask.render({
-      pending: () => html`<sl-card><p>Loading...</sl-card>`,
+      pending: () => html`<sl-card><p>Loading...</p></sl-card>`,
       complete: (til) => html`
         <sl-card class="card-header">
           <div slot="header">${til.title}</div>
