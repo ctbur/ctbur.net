@@ -1,23 +1,33 @@
-import { LitElement, html } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
 import "../components/nav-bar";
-import "../components/til-card";
+import "../components/til-card-list";
 
 @customElement("x-view-tils")
-export class Home extends LitElement {
+export class Tils extends LitElement {
   render() {
     return html`
       <x-nav-bar currentview="tils"></x-nav-bar>
       <main>
-        <x-til-card tilid="7CHb54awH0gjxM69qIrUG3"></x-til-card>
+        <div class="til-card-list">
+          <x-til-card-list></x-til-card-list>
+        </div>
       </main>
     `;
   }
+
+  static styles = css`
+    .til-card-list {
+      margin: 1rem auto;
+      width: 50rem;
+      max-width: 100%;
+    }
+  `;
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "x-view-tils": Home;
+    "x-view-tils": Tils;
   }
 }
