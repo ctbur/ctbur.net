@@ -6,7 +6,9 @@ import "./views/home";
 import "./views/tils";
 
 const router = new Router(document.getElementById("app"));
-router.setRoutes([
-  { path: "/", component: "x-view-home" },
-  { path: "/tils", component: "x-view-tils" },
-]).catch((err) => console.error(err));
+router
+  .setRoutes([
+    { path: "/", component: "x-view-home" },
+    { path: "/tils", component: "x-view-tils" },
+  ])
+  .catch((err) => console.error(err));
