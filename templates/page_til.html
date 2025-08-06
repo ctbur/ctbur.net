@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         {{ template "comp_head" }}
-        <title>My Blog Home Page</title>
+        <title>Fragments | ctbur.me</title>
     </head>
 
     <body>
@@ -11,6 +11,11 @@
 
         <main class="container">
             <section>
+                <header class="explainer">
+                    <h1>Fragments</h1>
+                    <p>A collection of thoughts, learnings and reminders.</p>
+                </header>
+
                 {{ range $fragment := . }}
                 <article class="card" id="{{ $fragment.ID }}">
                     <header>
