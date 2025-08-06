@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"html/template"
@@ -64,14 +65,45 @@ func main() {
 	mux := http.NewServeMux()
 
 	staticFileServer := http.FileServer(http.Dir("static"))
-	http.Handle("/static/", http.StripPrefix("/static/", staticFileServer))
+	mux.Handle("/static/", http.StripPrefix("/static/", staticFileServer))
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
 		log := log.FromContext(r.Context())
-		err := tmpl.ExecuteTemplate(w, "page_index", nil)
+
+		var b bytes.Buffer
+		err := tmpl.ExecuteTemplate(&b, "page_index", nil)
 		if err != nil {
 			log.Error("Failed to render page", slog.Any("error", err))
+			// TODO: error page
+			w.WriteHeader(http.StatusInternalServerError)
+			return
 		}
+
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		b.WriteTo(w)
+	})
+
+	tils, err := LoadTils("content/tils.toml")
+	slog.Info("Tils", slog.Int("num", len(tils)))
+	if err != nil {
+		slog.Error("Failed to load TILs", slog.Any("error", err))
+		return
+	}
+
+	mux.HandleFunc("GET /til", func(w http.ResponseWriter, r *http.Request) {
+		log := log.FromContext(r.Context())
+
+		var b bytes.Buffer
+		err := tmpl.ExecuteTemplate(&b, "page_til", tils)
+		if err != nil {
+			log.Error("Failed to render page", slog.Any("error", err))
+			// TODO: error page
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		b.WriteTo(w)
 	})
 
 	handler := log.Middleware(mux)

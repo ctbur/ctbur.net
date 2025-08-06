@@ -1,0 +1,39 @@
+{{ define "page_til" }}
+<!doctype html>
+<html lang="en">
+    <head>
+        {{ template "comp_head" }}
+        <title>My Blog Home Page</title>
+    </head>
+
+    <body>
+        <header class="container">
+            {{ template "comp_navbar" dict "Page" "til" }}
+        </header>
+
+        <main class="container">
+            <section>
+                {{ range $til := . }}
+                <article class="card" id="{{ $til.ID }}">
+                    <header>
+                        <a href="#{{ $til.ID }}">
+                            <div>{{ $til.Title }}</div>
+                        </a>
+                    </header>
+
+                    {{ $til.Content }}
+
+                    <footer>
+                        <ul class="tags-list">
+                            {{ range $tag := .Tags }}
+                            <li><span>{{ $tag }}</span></li>
+                            {{ end }}
+                        </ul>
+                    </footer>
+                </article>
+                {{ end }}
+            </section>
+        </main>
+    </body>
+</html>
+{{ end }}
