@@ -12,6 +12,10 @@ article.card > header > a:hover {
     text-decoration: underline;
 }
 
+article.card:target {
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.2);
+}
+
 .tags-list {
     list-style: none;
     padding: 0;

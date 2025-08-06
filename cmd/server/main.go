@@ -5,38 +5,23 @@ import (
 	"context"
 	"errors"
 	"html/template"
-	"io/fs"
 	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
-	"path/filepath"
-	"strings"
 	"time"
 
-	log "github.com/ctbur/ctbur.me/internal"
+	"github.com/ctbur/ctbur.me/internal/log"
+	"github.com/ctbur/ctbur.me/internal/til"
 )
 
 func loadTemplates() (*template.Template, error) {
-	var tmplFiles []string
-	filepath.Walk("templates", func(path string, info fs.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		if !info.IsDir() && strings.HasSuffix(info.Name(), ".html") {
-			tmplFiles = append(tmplFiles, path)
-		}
-
-		return nil
-	})
-
 	tmpl := template.New("main")
 	tmpl.Funcs(template.FuncMap{
 		"dict": dict,
 	})
 
-	return tmpl.ParseFiles(tmplFiles...)
+	return tmpl.ParseGlob("templates/*.html")
 }
 
 func dict(values ...any) (map[string]any, error) {
@@ -83,7 +68,7 @@ func main() {
 		b.WriteTo(w)
 	})
 
-	tils, err := LoadTils("content/tils.toml")
+	tils, err := til.LoadTils("content/tils.toml")
 	slog.Info("Tils", slog.Int("num", len(tils)))
 	if err != nil {
 		slog.Error("Failed to load TILs", slog.Any("error", err))
