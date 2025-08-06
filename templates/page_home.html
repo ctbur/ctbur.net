@@ -1,4 +1,4 @@
-{{ define "page_index" }}
+{{ define "page_home" }}
 <!doctype html>
 <html lang="en">
     <head>
@@ -7,9 +7,7 @@
     </head>
 
     <body>
-        <header class="container">
-            {{ template "comp_navbar" dict "Page" "home" }}
-        </header>
+        <header class="container">{{ template "comp_navbar" "home" }}</header>
     </body>
 </html>
 {{ end }}
