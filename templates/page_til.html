@@ -1,4 +1,4 @@
-{{ define "page_til" }}
+{{ define "page_fragments" }}
 <!doctype html>
 <html lang="en">
     <head>
@@ -7,21 +7,21 @@
     </head>
 
     <body>
-        <header class="container">{{ template "comp_navbar" "til" }}</header>
+        <header class="container">{{ template "comp_navbar" "fragments" }}</header>
 
         <main class="container">
             <section>
-                {{ range $til := . }}
-                <article class="card" id="{{ $til.ID }}">
+                {{ range $fragment := . }}
+                <article class="card" id="{{ $fragment.ID }}">
                     <header>
-                        <a href="#{{ $til.ID }}">
+                        <a href="#{{ $fragment.ID }}">
                             <div>
-                                <h5>{{ $til.Title }}</h5>
+                                <h5>{{ $fragment.Title }}</h5>
                             </div>
                         </a>
                     </header>
 
-                    {{ $til.Content }}
+                    {{ $fragment.Content }}
 
                     <footer>
                         <ul class="tags-list">

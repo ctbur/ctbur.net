@@ -10,8 +10,8 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/ctbur/ctbur.me/internal/fragments"
 	"github.com/ctbur/ctbur.me/internal/log"
-	"github.com/ctbur/ctbur.me/internal/til"
 )
 
 func main() {
@@ -33,15 +33,15 @@ func main() {
 		}
 	})
 
-	tils, err := til.LoadTils("content/tils.toml")
+	fragments, err := fragments.LoadFragments("content/fragments.toml")
 	if err != nil {
-		slog.Error("Failed to load TILs", slog.Any("error", err))
+		slog.Error("Failed to load fragments", slog.Any("error", err))
 		return
 	}
 
-	mux.HandleFunc("GET /til", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("GET /fragments", func(w http.ResponseWriter, r *http.Request) {
 		log := log.FromContext(r.Context())
-		if RenderPage(*tmpl, "page_til", tils, w); err != nil {
+		if RenderPage(*tmpl, "page_fragments", fragments, w); err != nil {
 			log.Error("Failed to render page", slog.Any("error", err))
 		}
 	})

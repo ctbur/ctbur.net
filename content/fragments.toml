@@ -1,7 +1,7 @@
-[[tils]]
+[[fragments]]
 id = 0
 date = 2025-08-05
-title = "This is an example TIL"
+title = "This is an example fragment"
 content = """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -10,10 +10,10 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 """
 tags = ["tag1", "tag2"]
 
-[[tils]]
+[[fragments]]
 id = 1
 date = 2025-08-03
-title = "This is another example TIL"
+title = "This is another example fragment"
 content = """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
