@@ -15,7 +15,9 @@
                 <article class="card" id="{{ $til.ID }}">
                     <header>
                         <a href="#{{ $til.ID }}">
-                            <div>{{ $til.Title }}</div>
+                            <div>
+                                <h5>{{ $til.Title }}</h5>
+                            </div>
                         </a>
                     </header>
 
@@ -27,6 +29,10 @@
                             <li><span>{{ $tag }}</span></li>
                             {{ end }}
                         </ul>
+
+                        <small>
+                            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+                        </small>
                     </footer>
                 </article>
                 {{ end }}

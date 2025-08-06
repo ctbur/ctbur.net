@@ -1,4 +1,8 @@
-article.card > header > a {
+article.card:target {
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+article.card header a {
     text-decoration: none;
     color: inherit;
 
@@ -8,12 +12,14 @@ article.card > header > a {
     bottom: 0;
 }
 
-article.card > header > a:hover {
+article.card header a:hover {
     text-decoration: underline;
 }
 
-article.card:target {
-    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.2);
+article.card footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .tags-list {
