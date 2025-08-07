@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"os"
@@ -47,7 +48,13 @@ func main() {
 	})
 
 	handler := log.Middleware(mux)
-	server := &http.Server{Addr: ":8080", Handler: handler}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	server := &http.Server{Addr: fmt.Sprintf(":%s", port), Handler: handler}
 
 	go func() {
 		if err := server.ListenAndServe(); err != nil {
