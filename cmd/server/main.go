@@ -11,8 +11,8 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/ctbur/ctbur.me/internal/fragments"
-	"github.com/ctbur/ctbur.me/internal/log"
+	"github.com/ctbur/ctbur.net/internal/fragments"
+	"github.com/ctbur/ctbur.net/internal/log"
 )
 
 func main() {

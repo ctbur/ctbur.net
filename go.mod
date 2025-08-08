@@ -1,4 +1,4 @@
-module github.com/ctbur/ctbur.me
+module github.com/ctbur/ctbur.net
 
 go 1.24.5
 
