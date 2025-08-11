@@ -10,7 +10,7 @@ env:
   IMAGE_NAME: server
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     permissions:
@@ -33,8 +33,8 @@ jobs:
 
       - name: "Build and push Docker image"
         run: |
-          docker build -t ${{ REGION }}-docker.pkg.dev/${{ PROJECT_ID }}/${{ SERVICE }}/${{ IMAGE_NAME }}:${{ github.sha }} .
-          docker push ${{ REGION }}-docker.pkg.dev/${{ PROJECT_ID }}/${{ SERVICE }}/${{ IMAGE_NAME }}:${{ github.sha }}
+          docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
       - name: "Deploy to Cloud Run"
         uses: "google-github-actions/deploy-cloudrun@147732842f8a61ce9bd3b3f8e9f6597fe991ad65"
