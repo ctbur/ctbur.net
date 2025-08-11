@@ -1,23 +1,34 @@
 [[fragments]]
 id = 0
-date = 2025-08-05
-title = "This is an example fragment"
+date = 2025-08-11
+title = "How to recover from a catastrophically failed Arch Linux upgrade"
 content = """
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-"""
-tags = ["tag1", "tag2"]
+If you read this and you managed to brick you Arch install again: Congrats!
+I hope you learned something.
 
-[[fragments]]
-id = 1
-date = 2025-08-03
-title = "This is another example fragment"
-content = """
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+To restore the installation, boot the live system and mount the root and boot partitions under, e.g., `/mnt`.
+You may need to use `cryptsetup open` to decrypt the root partition:
+
+```bash
+cryptsetup open ...  # use `man cryptsetup open` for the details
+mkdir /mnt
+mount <root partition> /mnt
+mount <boot partition> /mnt/boot
+arch-chroot /mnt
+```
+
+If at some point you notice that the boot partition is completely shot, reformat it, reinstall the bootloader, and restore its config files.
+My recommendation would be to have made a backup of those files beforehand.
+
+Finally it's a good idea to reinstall all packages in case some of them became corrupted:
+
+```bash
+pacman -Qqn | pacman -S -
+```
+
+`pacman` preserves which packages are installed explicitly vs. as dependencies.
+
+At this point you're done and should be able to reboot normally.
+For the future you should consider adding a second kernel if you don't have one, it might save you from doing all of this in a live system.
 """
-tags = ["tag2", "tag3"]
+tags = ["linux"]
