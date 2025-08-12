@@ -13,6 +13,10 @@ import (
 
 	"github.com/ctbur/ctbur.net/internal/fragments"
 	"github.com/ctbur/ctbur.net/internal/log"
+
+	chromahtml "github.com/alecthomas/chroma/v2/formatters/html"
+	"github.com/yuin/goldmark"
+	highlighting "github.com/yuin/goldmark-highlighting/v2"
 )
 
 func main() {
@@ -34,7 +38,17 @@ func main() {
 		}
 	})
 
-	fragments, err := fragments.LoadFragments("content/fragments.toml")
+	markdown := goldmark.New(
+		goldmark.WithExtensions(
+			highlighting.NewHighlighting(
+				highlighting.WithStyle("catppuccin-latte"),
+				highlighting.WithFormatOptions(
+					chromahtml.WithLineNumbers(true),
+				),
+			),
+		),
+	)
+	fragments, err := fragments.LoadFragments("content/fragments.toml", markdown)
 	if err != nil {
 		slog.Error("Failed to load fragments", slog.Any("error", err))
 		return
