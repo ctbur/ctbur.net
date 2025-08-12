@@ -1,10 +1,12 @@
 package fragments
 
 import (
+	"bytes"
 	"fmt"
 	"time"
 
 	"github.com/BurntSushi/toml"
+	"github.com/yuin/goldmark"
 )
 
 type FragmentsFile struct {
@@ -19,7 +21,7 @@ type Fragment struct {
 	Tags    []string  `toml:"tags"`
 }
 
-func LoadFragments(fragmentsFilePath string) ([]Fragment, error) {
+func LoadFragments(fragmentsFilePath string, markdown goldmark.Markdown) ([]Fragment, error) {
 	var ff FragmentsFile
 	toml.DecodeFile(fragmentsFilePath, &ff)
 
@@ -36,8 +38,10 @@ func LoadFragments(fragmentsFilePath string) ([]Fragment, error) {
 		}
 	}
 
-	// Ensure that each entry has all properties set
-	for _, fragment := range ff.Fragments {
+	for idx, _ := range ff.Fragments {
+		fragment := &ff.Fragments[idx]
+
+		// Ensure that each entry has all properties set
 		if fragment.Date.IsZero() {
 			return nil, fmt.Errorf("Fragment %d has no date", fragment.ID)
 		}
@@ -50,6 +54,13 @@ func LoadFragments(fragmentsFilePath string) ([]Fragment, error) {
 		if len(fragment.Tags) == 0 {
 			return nil, fmt.Errorf("Fragment %d has no tags", fragment.ID)
 		}
+
+		// Convert markdown content
+		var buf bytes.Buffer
+		if err := markdown.Convert([]byte(fragment.Content), &buf); err != nil {
+			return nil, fmt.Errorf("Fragment markdown parse failed: %w", err)
+		}
+		fragment.Content = buf.String()
 	}
 
 	return ff.Fragments, nil

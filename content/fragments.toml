@@ -20,7 +20,7 @@ arch-chroot /mnt
 If at some point you notice that the boot partition is completely shot, reformat it, reinstall the bootloader, and restore its config files.
 My recommendation would be to have made a backup of those files beforehand.
 
-Finally it's a good idea to reinstall all packages in case some of them became corrupted:
+Finally, it's a good idea to reinstall all packages in case some of them became corrupted:
 
 ```bash
 pacman -Qqn | pacman -S -
