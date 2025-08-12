@@ -21,10 +21,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
+      - name: Get Golang version from .mise.toml
+        uses: SebRollen/toml-action@v1.0.2
+        id: get-golang-version
+        with:
+          file: .mise.toml
+          field: tools.golang
+
       - name: Set up Go
         uses: actions/setup-go@8e57b58e57be52ac95949151e2777ffda8501267
         with:
-          go-version: "1.24.5"
+          go-version: '${{ steps.get-golang-version.outputs.value }}'
 
       - name: Test
         run: make test
