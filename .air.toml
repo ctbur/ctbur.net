@@ -1,0 +1,17 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o tmp/server cmd/server/main.go"
+bin = "tmp/server"
+include_ext = ["go", "toml", "html"]
+include_dir = ["cmd", "internal", "content", "templates", "static"]
+exclude_regex = ["_test\\.go"]
+
+[misc]
+clean_on_exit = true
+
+[proxy]
+  enabled = true
+  proxy_port = 3000
+  app_port = 8080
