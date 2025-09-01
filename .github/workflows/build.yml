@@ -41,7 +41,7 @@ jobs:
 
       - name: "Set up Cloud SDK"
         if: github.ref_name == 'main'
-        uses: "google-github-actions/setup-gcloud@cb1e50a9932213ecece00a606661ae9ca44f3397"
+        uses: "google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db"
 
       - name: Use gcloud as Docker credential helper
         if: github.ref_name == 'main'
