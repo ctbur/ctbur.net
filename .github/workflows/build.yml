@@ -55,7 +55,7 @@ jobs:
 
       - name: "Deploy to Cloud Run"
         if: github.ref_name == 'main'
-        uses: "google-github-actions/deploy-cloudrun@147732842f8a61ce9bd3b3f8e9f6597fe991ad65"
+        uses: "google-github-actions/deploy-cloudrun@2028e2d7d30a78c6910e0632e48dd561b064884d"
         with:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
