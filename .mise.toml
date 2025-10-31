@@ -1,0 +1,6 @@
+[settings]
+experimental = true
+
+[tools]
+golang        = "1.24.5"
+"go:github.com/air-verse/air" = "1.62.0"
